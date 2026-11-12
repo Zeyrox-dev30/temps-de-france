@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Temps de France</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+         <header class="app-header">
+        <button id="back-themes-btn" class="header-action-btn" style="display: none;" onclick="showThemesPortal()">☰ Thèmes</button>
+        <div class="header-titles">
+            <h1 id="header-title">Histoire de France</h1>
+            <p class="subtitle" id="header-subtitle">Choisissez un thème à explorer</p>
+        </div>
+        <button id="theme-toggle" class="header-action-btn round-btn" onclick="toggleDarkMode()" title="Changer le thème">🌙</button>
+    </header>
+
+
+
+    <main class="app-content">
+                <!-- ÉCRAN PORTAIL : CHOIX DU GRAND THÈME -->
+        <section id="portail" class="view active">
+            <div class="hero-card">
+                <h2>Explorez l'Histoire</h2>
+                <p>Sélectionnez une grande période historique pour accéder à ses cours, sa frise chronologique, ses biographies et ses quiz.</p>
+            </div>            <div class="portal-actions-grid">
+                <button class="primary-btn" style="margin: 0; background: var(--accent); font-size: 0.92rem; padding: 12px 10px;" onclick="openEncyclopedie()">
+                    📅 Dates Clés<br><span style="font-size: 0.75rem; font-weight: normal;">Brevet & Bac</span>
+                </button>
+                <button class="primary-btn" style="margin: 0; background: var(--primary); font-size: 0.92rem; padding: 12px 10px;" onclick="startArcadeMode()">
+                    ⏱️ Défi Chrono 60s<br><span id="arcade-record-badge" style="font-size: 0.75rem; font-weight: normal;">Record : 0</span>
+                     
+                </button>
+            </div>
+                        <div id="themes-list" class="menu-grid"></div>
+                                    <div style="text-align: center; font-size: 0.78rem; color: #64748b; margin-top: 24px; padding-bottom: 10px;">
+                <p><strong>ChronoFrance — Histoire de France</strong></p>
+                <p style="margin-top: 4px;">Application éducative 100 % hors-ligne • Crédits médias : Wikimedia Commons</p>
+                <p style="margin-top: 2px;">Aucune donnée personnelle collectée (sauvegarde locale uniquement).</p>
+            </div>
+
+                        </section>
+
+
+                <!-- ÉCRAN ENCYCLOPÉDIE DES DATES CLÉS -->
+        <section id="encyclopedie" class="view">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h2>Repères Chronologiques</h2>
+                <button id="revision-mode-btn" onclick="toggleRevisionMode()" style="padding: 7px 12px; border-radius: 8px; border: 1px solid var(--accent); background: transparent; color: var(--accent); font-weight: bold; font-size: 0.82rem; cursor: pointer;">
+                    👁️ Mode Révision
+                </button>
+            </div>
+
+            <input type="text" id="encyclo-search" class="search-input" placeholder="🔍 Chercher une année ou un événement (ex: 1789, Verdun...)" onkeyup="renderEncyclopedie()">
+
+            <div id="encyclo-filters" class="filter-chips"></div>
+            <div id="encyclo-list"></div>
+        </section>
+                <!-- ÉCRAN DÉFI CHRONO 60 SECONDES -->
+        <section id="arcade" class="view">
+            <div class="arcade-hud">
+                <span id="arcade-timer">⏱️ 60s</span>
+                <span id="arcade-score">Score : 0</span>
+            </div>
+            <div id="arcade-container" class="card">
+                <span id="arcade-theme-tag" class="date-badge">Thème</span>
+                <p id="arcade-question" style="font-weight: 600; font-size: 1.05rem; margin: 8px 0 12px 0;"></p>
+                <div id="arcade-options"></div>
+            </div>
+        </section>
+
+
+             <!-- SECTION ACCUEIL -->
+        <section id="accueil" class="view">
+                       <div class="hero-card">
+                <h2>Bienvenue</h2>
+                <p id="theme-welcome-desc">Explorez l'histoire, découvrez les grandes figures et testez vos connaissances.</p>
+
+                
+                <!-- Archive historique du jour -->
+                <div id="archive-du-jour" class="archive-box"></div>
+
+                <!-- Suivi de progression -->
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600;">
+                        <span>Progression des cours</span>
+                        <span id="progress-text">0 / 4 lus</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-fill" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <p id="best-score-display" style="margin-top: 10px; font-weight: bold; color: var(--accent); font-size: 0.95rem;"></p>
+            </div>
+
+            <!-- Vitrine des Badges -->
+            <div class="card">
+                <h3 style="margin-bottom: 4px;">🎖️ Mes Médailles & Badges</h3>
+                <p style="font-size: 0.85rem; color: #64748b;">Lisez les chapitres et réussissez les quiz pour les débloquer.</p>
+                <div id="badges-container" class="badges-grid"></div>
+            </div>
+
+            <div class="menu-grid">
+               <button id="home-cours-btn" class="menu-btn" onclick="navigate('cours')">📚 Les Cours</button>
+                <button class="menu-btn" onclick="navigate('chrono')">⏳ Frise Chronologique</button>
+                <button class="menu-btn" onclick="navigate('lexique')">📖 Lexique Historique</button>
+                <button class="menu-btn" onclick="navigate('biographies')">👤 Grandes Figures Historiques</button>
+                <button class="menu-btn" onclick="navigate('quiz')">❓ Le Grand Quiz</button>
+            </div>
+        </section>
+
+
+        <!-- SECTION COURS (Générée automatiquement) -->
+        <section id="cours" class="view">
+            <h2 style="margin-bottom: 12px;">Programme Historique</h2>
+            <div id="cours-list"></div>
+        </section>
+                <!-- SECTION FRISE CHRONOLOGIQUE -->
+        <section id="chrono" class="view">
+            <h2 style="margin-bottom: 6px;">Frise Chronologique</h2>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 12px;">Appuyez sur une date pour afficher les détails historiques.</p>
+            <div class="timeline" id="timeline-list"></div>
+        </section>
+                <!-- SECTION LEXIQUE -->
+        <section id="lexique" class="view">
+            <h2 style="margin-bottom: 10px;">Lexique Historique</h2>
+           <input type="text" id="lexique-search" class="search-input" placeholder="🔍 Rechercher un terme historique..." onkeyup="filterLexique()">
+            <div id="lexique-list"></div>
+        </section>
+
+
+
+        <!-- SECTION QUIZ -->
+        <section id="quiz" class="view">
+            <h2 style="margin-bottom: 12px;">Quiz d'évaluation</h2>
+            <div id="quiz-container" class="card">
+                <p id="question-text">Chargement de la question...</p>
+                <div id="options-container"></div>
+                <p id="feedback-text"></p>
+                <button id="next-btn" class="primary-btn" style="display:none;" onclick="nextQuestion()">Question suivante</button>
+            </div>
+        </section>
+
+        <!-- SECTION BIOGRAPHIES (Générée automatiquement) -->
+        <section id="biographies" class="view">
+            <h2 style="margin-bottom: 12px;">Grandes Figures Historiques</h2>
+            <div id="bio-list"></div>
+        </section>
+    </main>
+
+    <!-- BARRE DE NAVIGATION BASSE -->
+       <nav class="bottom-nav">
+        <button onclick="navigate('accueil')" class="nav-item active" id="nav-accueil">🏠 Accueil</button>
+        <button onclick="navigate('cours')" class="nav-item" id="nav-cours">📚 Cours</button>
+        <button onclick="navigate('chrono')" class="nav-item" id="nav-chrono">⏳ Chrono</button>
+        <button onclick="navigate('lexique')" class="nav-item" id="nav-lexique">📖 Lexique</button>
+        <button onclick="navigate('biographies')" class="nav-item" id="nav-biographies">👤 Bios</button>
+        <button onclick="navigate('quiz')" class="nav-item" id="nav-quiz">❓ Quiz</button>
+    </nav>
+
+
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

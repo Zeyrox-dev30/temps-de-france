@@ -1,0 +1,512 @@
+:root {
+    --primary: #1e293b;      /* Bleu nuit solennel */
+    --accent: #b45309;       /* Ocre / Bronze mémoriel */
+    --bg: #f8fafc;           /* Fond clair reposant */
+    --card-bg: #ffffff;
+    --text: #0f172a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    padding-bottom: 70px;
+}
+
+.app-header {
+    background-color: var(--primary);
+    color: white;
+    padding: 14px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.header-titles {
+    flex: 1;
+    text-align: center;
+    min-width: 0; /* Empêche le texte de déborder sur les boutons */
+}
+
+.app-header h1 {
+    font-size: 1.15rem;
+    letter-spacing: 0.4px;
+    line-height: 1.25;
+    word-wrap: break-word;
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    margin-top: 3px;
+}
+
+.header-action-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0; /* Empêche les boutons d'être écrasés */
+}
+
+.round-btn {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 1.05rem;
+}
+
+
+.view { display: none; animation: fadeIn 0.25s ease-in; }
+.view.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .hero-card {
+    background: var(--card-bg);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.date-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.menu-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.menu-btn, .primary-btn, .option-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.menu-btn {
+    background: white;
+    color: var(--primary);
+    border: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+    margin-top: 15px;
+}
+
+.option-btn {
+    background: #f1f5f9;
+    color: var(--text);
+    margin-top: 8px;
+    text-align: left;
+    border: 1px solid #cbd5e1;
+}
+
+.option-btn.correct { background: #dcfce7; border-color: #16a34a; color: #14532d; }
+.option-btn.wrong { background: #fee2e2; border-color: #dc2626; color: #7f1d1d; }
+
+#feedback-text {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #e2e8f0;
+    padding: 8px 0;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    font-size: 0.85rem;
+    color: #64748b;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.nav-item.active {
+    color: var(--accent);
+    font-weight: bold;
+}
+/* Style des portraits des biographies */
+.bio-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.bio-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent);
+    background-color: #e2e8f0;
+    flex-shrink: 0;
+}
+
+.bio-info h3 {
+    margin: 4px 0 0 0;
+    font-size: 1.1rem;
+}
+/* Frise Chronologique Interactive */
+.timeline {
+    position: relative;
+    padding-left: 26px;
+    border-left: 3px solid var(--accent);
+    margin: 15px 0 20px 8px;
+}
+
+.timeline-item {
+    position: relative;
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.timeline-item:active {
+    transform: scale(0.98);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -35px;
+    top: 18px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 3px solid var(--accent);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timeline-details {
+    display: none;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #334155;
+}
+
+.timeline-item.open .timeline-details {
+    display: block;
+    animation: fadeIn 0.2s ease-in;
+}
+
+.timeline-item.open .timeline-arrow {
+    transform: rotate(180deg);
+}
+
+.timeline-arrow {
+    transition: transform 0.2s;
+    color: var(--accent);
+    font-weight: bold;
+}
+/* Mode Sombre (Dark Mode) */
+body.dark-mode {
+    --primary: #0f172a;
+    --accent: #f59e0b;
+    --bg: #020617;
+    --card-bg: #1e293b;
+    --text: #f1f5f9;
+}
+
+body.dark-mode .menu-btn,
+body.dark-mode .bottom-nav {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+body.dark-mode .option-btn {
+    background-color: #334155;
+    border-color: #475569;
+    color: #f8fafc;
+}
+
+body.dark-mode .timeline-details {
+    color: #cbd5e1;
+    border-top-color: #334155;
+}
+
+body.dark-mode .timeline-header h3,
+body.dark-mode .card h3 {
+    color: #f8fafc !important;
+}
+
+
+
+/* Barre de recherche du Lexique */
+.search-input {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    background-color: var(--card-bg);
+    color: var(--text);
+}
+
+.lexique-term {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+}
+/* Barre de progression & Badges */
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background-color: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 10px 0 6px 0;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--accent);
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.badge-card {
+    background: var(--card-bg);
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    opacity: 0.45;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+}
+
+.badge-card.unlocked {
+    opacity: 1;
+    filter: none;
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(180, 83, 9, 0.18);
+}
+
+.badge-icon {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.read-btn {
+    background: #e2e8f0;
+    color: var(--primary);
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.read-btn.done {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #16a34a;
+}
+
+.archive-box {
+    border-left: 4px solid var(--accent);
+    background: rgba(180, 83, 9, 0.06);
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 12px;
+    font-style: italic;
+}
+
+body.dark-mode .badge-card {
+    border-color: #334155;
+}
+
+body.dark-mode .progress-bar-bg {
+    background-color: #334155;
+}
+/* Lecteur d'Archive Sonore dans les cours */
+.audio-box {
+    background-color: rgba(180, 83, 9, 0.08);
+    border: 1px solid rgba(180, 83, 9, 0.3);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 14px 0;
+}
+
+.audio-title {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.audio-player {
+    width: 100%;
+    height: 36px;
+    outline: none;
+}
+
+body.dark-mode .audio-box {
+    background-color: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.35);
+}
+/* Encyclopédie des Dates Clés (Brevet & Bac) */
+.filter-chips {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+.chip-btn {
+    background: var(--card-bg);
+    color: var(--text);
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.chip-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.encyclo-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--primary);
+}
+
+.encyclo-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.encyclo-theme-tag {
+    font-size: 0.75rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.blurred-text {
+    filter: blur(6px);
+    user-select: none;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.blurred-text.revealed {
+    filter: none;
+}
+
+body.dark-mode .chip-btn:not(.active) {
+    border-color: #334155;
+}
+/* Mode Défi Chrono 60 Secondes */
+.arcade-hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+    font-weight: bold;
+    font-size: 1.05rem;
+}
+
+.timer-danger {
+    color: #fca5a5;
+    animation: pulseTimer 0.6s infinite alternate;
+}
+
+@keyframes pulseTimer {
+    from { transform: scale(1); }
+    to { transform: scale(1.12); }
+}
+
+.portal-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
